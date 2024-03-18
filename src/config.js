@@ -2,7 +2,7 @@ const { Regex } = require('@companion-module/base')
 
 module.exports = {
 	getConfigFields() {
-		let self = this;
+		let self = this
 
 		return [
 			{
@@ -10,20 +10,20 @@ module.exports = {
 				id: 'info',
 				width: 12,
 				label: 'Information',
-				value: 'This module controls Sony Bravia TVs. The TV will need to be configured with a Pre Shared Key (PSK).'
+				value: 'This module controls Sony Bravia TVs. The TV will need to be configured with a Pre Shared Key (PSK).',
 			},
 			{
 				type: 'textinput',
 				id: 'host',
 				label: 'Target IP',
 				width: 6,
-				regex: Regex.IP
+				regex: Regex.IP,
 			},
 			{
 				type: 'textinput',
 				id: 'psk',
 				label: 'Pre Shared Key (PSK)',
-				width: 6
+				width: 6,
 			},
 			{
 				type: 'checkbox',
@@ -56,14 +56,14 @@ module.exports = {
 					<div class="alert alert-info">
 						Enabling this option will put more detail in the log, which can be useful for troubleshooting purposes.
 					</div>
-				`
+				`,
 			},
 			{
 				type: 'checkbox',
 				id: 'verbose',
 				label: 'Enable Verbose Logging',
-				default: false
+				default: false,
 			},
 		]
-	}
+	},
 }
