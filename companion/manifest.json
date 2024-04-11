@@ -21,10 +21,6 @@
 		"entrypoint": "../index.js"
 	},
 	"manufacturer": "Sony",
-	"products": [
-		"Bravia"
-	],
-	"keywords": [
-		"TV"
-	]
+	"products": ["Bravia"],
+	"keywords": ["TV"]
 }
