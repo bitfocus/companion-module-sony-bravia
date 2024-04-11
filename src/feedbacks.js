@@ -1,9 +1,9 @@
-const { combineRgb } = require('@companion-module/base');
+const { combineRgb } = require('@companion-module/base')
 
 module.exports = {
 	initFeedbacks: function () {
-		let self = this;
-		let feedbacks = {};
+		let self = this
+		let feedbacks = {}
 
 		const foregroundColor = combineRgb(255, 255, 255) // White
 		const backgroundColorRed = combineRgb(255, 0, 0) // Red
@@ -20,24 +20,24 @@ module.exports = {
 					default: true,
 					choices: [
 						{ id: true, label: 'On' },
-						{ id: false, label: 'Off' }
-					]
-				}
+						{ id: false, label: 'Off' },
+					],
+				},
 			],
 			defaultStyle: {
 				color: combineRgb(0, 0, 0),
-				bgcolor: combineRgb(255, 0, 0)
+				bgcolor: combineRgb(255, 0, 0),
 			},
 			callback: (event) => {
 				let opt = event.options
 
 				if (self.DATA.powerState == opt.state) {
-					return true;
+					return true
 				}
 
-				return false;
+				return false
 			},
-		};
+		}
 
 		feedbacks.muteStatus = {
 			type: 'boolean',
@@ -51,24 +51,24 @@ module.exports = {
 					default: true,
 					choices: [
 						{ id: true, label: 'On' },
-						{ id: false, label: 'Off' }
-					]
-				}
+						{ id: false, label: 'Off' },
+					],
+				},
 			],
 			defaultStyle: {
 				color: combineRgb(0, 0, 0),
-				bgcolor: combineRgb(255, 0, 0)
+				bgcolor: combineRgb(255, 0, 0),
 			},
 			callback: (event) => {
 				let opt = event.options
 
 				if (self.DATA.muteState == opt.state) {
-					return true;
+					return true
 				}
 
-				return false;
+				return false
 			},
-		};
+		}
 
 		feedbacks.currentInput = {
 			type: 'boolean',
@@ -80,24 +80,24 @@ module.exports = {
 					label: 'Input',
 					id: 'input',
 					default: self.CHOICES_INPUTS[0].id,
-					choices: self.CHOICES_INPUTS
-				}
+					choices: self.CHOICES_INPUTS,
+				},
 			],
 			defaultStyle: {
 				color: combineRgb(0, 0, 0),
-				bgcolor: combineRgb(255, 0, 0)
+				bgcolor: combineRgb(255, 0, 0),
 			},
 			callback: (event) => {
 				let opt = event.options
 
 				if (self.DATA.input == opt.input) {
-					return true;
+					return true
 				}
 
-				return false;
+				return false
 			},
-		};
+		}
 
-		self.setFeedbackDefinitions(feedbacks);
-	}
+		self.setFeedbackDefinitions(feedbacks)
+	},
 }
