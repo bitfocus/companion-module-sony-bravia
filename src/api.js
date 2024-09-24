@@ -106,7 +106,7 @@ module.exports = {
 							self.checkVariables()
 						} else {
 							if (response.statusCode == 403) {
-								self.updateStatus(InstanceStatus.ConnectionFailure, 'Error 403, PSK may be incorrect.')
+								self.updateStatus(InstanceStatus.AuthenticationFailure, 'Error 403, PSK may be incorrect.')
 								self.log('error', 'PSK may be incorrect. Please check your PSK and try again.')
 								self.stopInterval()
 							}
