@@ -90,7 +90,7 @@ module.exports = {
 			callback: (event) => {
 				let opt = event.options
 
-				if (self.DATA.input == opt.input) {
+				if (!self.DATA.webAppState && self.DATA.input == opt.input) {
 					return true
 				}
 

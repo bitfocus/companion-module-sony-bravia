@@ -261,6 +261,58 @@ module.exports = {
 			}
 		}
 
+		presets['terminate_apps'] = {
+			category: 'App',
+			name: `Terminate All Apps`,
+			type: 'button',
+			style: {
+				text: 'Terminate All Apps',
+				size: '10',
+				color: foregroundColor,
+				bgcolor: foregroundColorBlack,
+			},
+			steps: [
+				{
+					down: [
+						{
+							actionId: 'terminate_apps',
+							options: {},
+						},
+					],
+					up: [],
+				},
+			],
+		}
+
+		for (let i = 0; i < (this.CHOICES_APPS || []).length; i++) {
+			let app = this.CHOICES_APPS[i]
+			presets[`select_app_${i}`] = {
+				category: 'App',
+				name: `Select app ${app.label}`,
+				type: 'button',
+				style: {
+					text: app.label,
+					size: '10',
+					color: foregroundColor,
+					bgcolor: foregroundColorBlack,
+				},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'set_active_app',
+								options: {
+									type: 'activity',
+									app_value: app.id,
+								},
+							},
+						],
+						up: [],
+					},
+				],
+			}
+		}
+
 		self.setPresetDefinitions(presets)
 	},
 }

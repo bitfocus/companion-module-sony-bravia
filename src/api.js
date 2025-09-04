@@ -1,4 +1,5 @@
 const { InstanceStatus } = require('@companion-module/base')
+const entities = require('entities')
 
 const Client = require('node-rest-client').Client
 
@@ -9,6 +10,7 @@ module.exports = {
 		self.updateStatus(InstanceStatus.Connecting)
 
 		self.sendCommand('avContent', 'getCurrentExternalInputsStatus', {}, 'allinputs')
+		self.sendCommand('appControl', 'getApplicationList', {}, 'allapps')
 
 		self.getInformation()
 		self.setupInterval()
@@ -41,6 +43,7 @@ module.exports = {
 		self.sendCommand('system', 'getPowerStatus', {}, 'power')
 		self.sendCommand('audio', 'getVolumeInformation', {}, 'volume')
 		self.sendCommand('avContent', 'getPlayingContentInfo', {}, 'input')
+		self.sendCommand('appControl', 'getWebAppStatus', {}, 'webapp')
 	},
 
 	sendCommand: function (service, method, params, request = undefined) {
@@ -82,6 +85,11 @@ module.exports = {
 											self.initFeedbacks()
 											self.initPresets()
 											break
+										case 'allapps':
+											self.DATA.apps = data.result[0]
+											self.buildAppList()
+											self.initPresets()
+											break
 										case 'power':
 											self.DATA.powerState = data.result[0].status === 'active' ? true : false
 											break
@@ -91,6 +99,10 @@ module.exports = {
 											break
 										case 'input':
 											self.DATA.input = data.result[0].uri
+											break
+										case 'webapp':
+											self.DATA.webAppState = data.result[0].active
+											self.DATA.webAppUrl = data.result[0].url
 											break
 										default:
 											break
@@ -161,6 +173,17 @@ module.exports = {
 		for (let i = 0; i < self.DATA.inputs.length; i++) {
 			let input = self.DATA.inputs[i]
 			self.CHOICES_INPUTS.push({ id: input.uri, label: input.title })
+		}
+	},
+
+	buildAppList: function () {
+		let self = this
+
+		self.CHOICES_APPS = []
+
+		for (let i = 0; i < self.DATA.apps.length; i++) {
+			let app = self.DATA.apps[i]
+			self.CHOICES_APPS.push({ id: app.uri, label: entities.decodeHTML5(app.title) })
 		}
 	},
 }

@@ -33,6 +33,8 @@ class braviaInstance extends InstanceBase {
 			muteState: false,
 			input: '',
 			inputs: [],
+			webAppState: false,
+			webAppUrl: '',
 		}
 
 		this.CHOICES_INPUTS = [

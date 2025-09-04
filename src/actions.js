@@ -101,6 +101,56 @@ module.exports = {
 			},
 		}
 
+		actions.set_active_app = {
+			name: 'Launch App',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Type',
+					id: 'type',
+					choices: [
+						{ id: 'activity', label: 'Android Activity' },
+						{ id: 'url', label: 'URL' },
+						{ id: 'manifest', label: 'Manifest' },
+						{ id: 'auid', label: 'Application ID' },
+					],
+				},
+				{
+					type: 'textinput',
+					label: 'Value',
+					id: 'app_value',
+					default: '',
+					required: true,
+				},
+			],
+			callback: async function (action) {
+				let opt = action.options
+				const rawValue = opt.app_value.trim()
+				const value = encodeURIComponent(rawValue)
+				let params = {
+					uri: opt.type === 'activity' ? '' : 'localapp://webappruntime?',
+				}
+				if (opt.type === 'url') {
+					params.uri += 'url=' + value
+				} else if (opt.type === 'manifest') {
+					params.uri += 'manifest=' + value
+				} else if (opt.type === 'auid') {
+					params.uri += 'auid=' + value
+				} else if (opt.type === 'activity') {
+					params.uri += rawValue
+				}
+				self.sendCommand('appControl', 'setActiveApp', params)
+			},
+		}
+
+		actions.terminate_apps = {
+			name: 'Terminate All Apps',
+			callback: async function (action) {
+				let params = {}
+				self.sendCommand('appControl', 'terminateApps', null)
+			},
+		}
+
 		self.setActionDefinitions(actions)
 	},
 }

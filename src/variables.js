@@ -8,6 +8,8 @@ module.exports = {
 		variables.push({ variableId: 'muteState', name: 'Mute State' })
 		variables.push({ variableId: 'volumeLevel', name: 'Current Volume Level' })
 		variables.push({ variableId: 'input', name: 'Current Input' })
+		variables.push({ variableId: 'webAppState', name: 'Current Web App State' })
+		variables.push({ variableId: 'webAppUrl', name: 'Current Web App URL' })
 
 		self.setVariableDefinitions(variables)
 	},
@@ -21,6 +23,8 @@ module.exports = {
 				muteState: self.DATA.muteState ? 'Muted' : 'Unmuted',
 				volumeLevel: self.DATA.volumeLevel,
 				input: self.DATA.input,
+				webAppState: self.DATA.webAppState ? 'Active' : 'Inactive',
+				webAppUrl: self.DATA.webAppUrl,
 			})
 		} catch (error) {
 			self.log('error', 'Error setting variables: ' + error)
