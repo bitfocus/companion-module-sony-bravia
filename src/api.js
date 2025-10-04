@@ -165,6 +165,49 @@ module.exports = {
 		}
 	},
 
+	parseWebAppURL: function (url) {
+		try {
+			if (URL.canParse(url)) {
+				webAppURL = new URL(url)
+				if (webAppURL.protocol == 'localapp:') {
+					if (webAppURL.host == 'webappruntime') {
+						for (let type of ['url', 'manifest', 'auid']) {
+							if (webAppURL.searchParams.has(type)) {
+								return {
+									type: type,
+									value: webAppURL.searchParams.get(type),
+								}
+							}
+						}
+						// No match, return undefined
+						return undefined
+					} else {
+						return undefined
+					}
+				} else {
+					// TODO(Peter): Basic error conditions, e.g. other protocol
+					return undefined
+				}
+			} else {
+				if (url !== undefined && url !== '') {
+					return {
+						type: 'activity',
+						value: url,
+					}
+				} else {
+					return undefined
+				}
+			}
+		} catch (e) {
+			// instanceof doesn't seem to work directly
+			if (e.name == 'TypeError') {
+				return undefined
+			} else {
+				throw e
+			}
+		}
+	},
+
 	buildInputList: function () {
 		let self = this
 
