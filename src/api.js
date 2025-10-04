@@ -103,6 +103,14 @@ module.exports = {
 										case 'webapp':
 											self.DATA.webAppState = data.result[0].active
 											self.DATA.webAppUrl = data.result[0].url
+											let webAppInfo = self.parseWebAppURL(self.DATA.webAppUrl)
+											if (webAppInfo !== undefined) {
+												self.DATA.webAppType = webAppInfo.type
+												self.DATA.webAppValue = webAppInfo.value
+											} else {
+												self.DATA.webAppType = ''
+												self.DATA.webAppValue = ''
+											}
 											break
 										default:
 											break
