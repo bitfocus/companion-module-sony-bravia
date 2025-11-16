@@ -151,6 +151,41 @@ module.exports = {
 			},
 		}
 
+		const PICTURE_SETTINGS = [
+			{ id: 'color', label: 'Color', default: 50, min: 0, max: 100 },
+			{ id: 'brightness', label: 'Brightness', default: 40, min: 0, max: 50 },
+			{ id: 'contrast', label: 'Contrast', default: 90, min: 0, max: 100 },
+			{ id: 'sharpness', label: 'Sharpness', default: 50, min: 0, max: 100 },
+		]
+
+		PICTURE_SETTINGS.forEach((setting) => {
+			actions['set_' + setting.id] = {
+				name: setting.label,
+				options: [
+					{
+						type: 'number',
+						label: setting.label,
+						id: 'value',
+						default: setting.default,
+						min: setting.min,
+						max: setting.max,
+					},
+				],
+				callback: async function (action) {
+					let opt = action.options
+					let params = {
+						settings: [
+							{
+								target: setting.id,
+								value: opt.value.toString(),
+							},
+						],
+					}
+					self.sendCommand('video', 'setPictureQualitySettings', params)
+				},
+			}
+		})
+
 		self.setActionDefinitions(actions)
 	},
 }

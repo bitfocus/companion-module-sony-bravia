@@ -313,6 +313,38 @@ module.exports = {
 			}
 		}
 
+		const PICTURE_PRESETS = [
+			{ id: 'color', label: 'Color', default: 50 },
+			{ id: 'brightness', label: 'Brightness', default: 40 },
+			{ id: 'contrast', label: 'Contrast', default: 90 },
+			{ id: 'sharpness', label: 'Sharpness', default: 50 },
+		]
+
+		PICTURE_PRESETS.forEach((setting) => {
+			presets[setting.id] = {
+				category: 'Picture Settings',
+				name: setting.label,
+				type: 'button',
+				style: {
+					text: setting.label,
+					size: '14',
+					color: foregroundColor,
+					bgcolor: foregroundColorBlack,
+				},
+				steps: [
+					{
+						down: [
+							{
+								actionId: 'set_' + setting.id,
+								options: { value: setting.default },
+							},
+						],
+						up: [],
+					},
+				],
+			}
+		})
+
 		self.setPresetDefinitions(presets)
 	},
 }

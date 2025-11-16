@@ -44,6 +44,7 @@ module.exports = {
 		self.sendCommand('audio', 'getVolumeInformation', {}, 'volume')
 		self.sendCommand('avContent', 'getPlayingContentInfo', {}, 'input')
 		self.sendCommand('appControl', 'getWebAppStatus', {}, 'webapp')
+		self.sendCommand('video', 'getPictureQualitySettings', { target: '' }, 'picture')
 	},
 
 	sendCommand: function (service, method, params, request = undefined) {
@@ -103,6 +104,13 @@ module.exports = {
 										case 'webapp':
 											self.DATA.webAppState = data.result[0].active
 											self.DATA.webAppUrl = data.result[0].url
+											break
+										case 'picture':
+											data.result[0].forEach((setting) => {
+												if (['color', 'brightness', 'contrast', 'sharpness'].includes(setting.target)) {
+													self.DATA[setting.target] = setting.currentValue
+												}
+											})
 											break
 										default:
 											break
