@@ -108,7 +108,7 @@ module.exports = {
 										case 'picture':
 											data.result[0].forEach((setting) => {
 												if (['color', 'brightness', 'contrast', 'sharpness'].includes(setting.target)) {
-													self.DATA[setting.target] = setting.currentValue
+													self.DATA[setting.target] = parseInt(setting.currentValue)
 												}
 											})
 											break
