@@ -1,4 +1,5 @@
 const { combineRgb } = require('@companion-module/base')
+const { PICTURE_SETTINGS } = require('./actions')
 
 module.exports = {
 	initPresets: function () {
@@ -313,14 +314,14 @@ module.exports = {
 			}
 		}
 
-		const PICTURE_PRESETS = [
+		const PICTURE_SETTINGS = [
 			{ id: 'color', label: 'Color', default: 50 },
 			{ id: 'brightness', label: 'Brightness', default: 40 },
 			{ id: 'contrast', label: 'Contrast', default: 90 },
 			{ id: 'sharpness', label: 'Sharpness', default: 50 },
 		]
 
-		PICTURE_PRESETS.forEach((setting) => {
+		PICTURE_SETTINGS.forEach((setting) => {
 			presets[setting.id] = {
 				category: 'Picture Settings',
 				name: setting.label,
