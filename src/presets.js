@@ -286,7 +286,7 @@ module.exports = {
 
 		for (let i = 0; i < (this.CHOICES_APPS || []).length; i++) {
 			let app = this.CHOICES_APPS[i]
-			presets[`select_app_${i}`] = {
+			const preset = {
 				category: 'App',
 				name: `Select app ${app.label}`,
 				type: 'button',
@@ -311,6 +311,11 @@ module.exports = {
 					},
 				],
 			}
+			if (app.png64) {
+				preset.style.png64 = app.png64
+				preset.style.alignment = 'center:bottom'
+			}
+			presets[`select_app_${i}`] = preset
 		}
 
 		self.setPresetDefinitions(presets)
