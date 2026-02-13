@@ -114,6 +114,7 @@ module.exports = {
 						{ id: 'manifest', label: 'Manifest' },
 						{ id: 'auid', label: 'Application ID' },
 					],
+					default: 'url',
 				},
 				{
 					type: 'textinput',
