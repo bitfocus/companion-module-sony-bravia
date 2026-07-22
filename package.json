@@ -14,7 +14,7 @@
 	"prettier": "@companion-module/tools/.prettierrc.json",
 	"dependencies": {
 		"@companion-module/base": "~1.14.1",
-		"entities": "^7.0.1",
+		"entities": "^8.0.0",
 		"node-rest-client": "^3.1.1"
 	},
 	"devDependencies": {
