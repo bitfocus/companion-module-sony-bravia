@@ -129,6 +129,39 @@ module.exports = {
 			},
 		}
 
+		feedbacks.webAppStatusType = {
+			type: 'boolean',
+			name: 'TV Web App Type is X Type',
+			description: 'Show feedback for Web App Type',
+			options: [
+				{
+					type: 'dropdown',
+					label: 'Type',
+					id: 'type',
+					choices: [
+						{ id: 'activity', label: 'Android Activity' },
+						{ id: 'url', label: 'URL' },
+						{ id: 'manifest', label: 'Manifest' },
+						{ id: 'auid', label: 'Application ID' },
+					],
+					default: 'url',
+				},
+			],
+			defaultStyle: {
+				color: combineRgb(0, 0, 0),
+				bgcolor: combineRgb(255, 0, 0),
+			},
+			callback: (event) => {
+				let opt = event.options
+
+				if (self.DATA.webAppType == opt.type) {
+					return true
+				}
+
+				return false
+			},
+		}
+
 		self.setFeedbackDefinitions(feedbacks)
 	},
 }
