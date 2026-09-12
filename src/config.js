@@ -26,6 +26,17 @@ module.exports = {
 				width: 6,
 			},
 			{
+				type: 'dropdown',
+				id: 'protocols',
+				label: 'Protocol',
+				width: 6,
+				default: 'http',
+				choices: [
+					{ id: 'http', label: 'HTTP' },
+					{ id: 'https', label: 'HTTPS' }
+				]
+			},
+			{
 				type: 'checkbox',
 				id: 'polling',
 				label: 'Enable Polling',
@@ -64,6 +75,27 @@ module.exports = {
 				id: 'verbose',
 				label: 'Enable Verbose Logging',
 				default: false,
+			},
+			{
+				type: 'checkbox',
+				id: 'allowUnauthorizedCertificates',
+				label: 'Allow Unauthorized Certificates',
+				width: 6,
+				default: false,
+				isVisible: (configValues) => configValues.protocols === 'https',
+			},
+			{
+				type: 'static-text',
+				id: 'allowUnauthorizedCertificatesInfo',
+				width: 12,
+				value: `
+						<h6>WARNING</h6>
+						<p>
+							This option is only for development purposees. We DO NOT recommend turning on this option in production.
+						</p>
+						<hr />
+					`,
+				isVisible: (configValues) => configValues.protocols === 'https' && configValues.allowUnauthorizedCertificates === true,
 			},
 		]
 	},

@@ -68,10 +68,19 @@ module.exports = {
 				},
 			}
 
-			let client = new Client()
+			const clientOptions = {};
+			if (self.config.protocols === 'https' && !!self.config.allowUnauthorizedCertificates) {
+				clientOptions.connection = {
+					rejectUnauthorized: false,
+				}
+			}
+
+			let client = new Client(clientOptions)
+
+			const protocol = self.config.protocols || 'http'
 
 			client
-				.post(`http://${self.config.host}/sony/${service}`, args, function (data, response) {
+				.post(`${protocol}://${self.config.host}/sony/${service}`, args, function (data, response) {
 					//do something with response
 					try {
 						if (response.statusCode == 200) {

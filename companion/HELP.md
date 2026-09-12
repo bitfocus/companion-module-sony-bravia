@@ -6,7 +6,7 @@ This module will allow you to control Sony Bravia TVs such as the FWD-65X950G.
 
 - The remote device must be configured to use a PSK.
 - Go into Network and Internet > Local network setup > IP Control. Change Authentication to Pre-Shared Key and set the PSK in Pre-Shared Key.
-- The module makes HTTP requests over port 80.
+- The module can be configured to make HTTP (port 80) or HTTPS (port 443) requests.
 - To allow power on, go into Network and Internet > Remote start > On (Powered on by apps)
 
 ### To use the module
