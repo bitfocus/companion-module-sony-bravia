@@ -35,6 +35,10 @@ class braviaInstance extends InstanceBase {
 			inputs: [],
 			webAppState: false,
 			webAppUrl: '',
+			color: NaN,
+			brightness: NaN,
+			contrast: NaN,
+			sharpness: NaN,
 		}
 
 		this.CHOICES_INPUTS = [
