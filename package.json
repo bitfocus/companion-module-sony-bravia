@@ -2,6 +2,7 @@
 	"name": "sony-bravia",
 	"version": "2.1.0",
 	"main": "index.js",
+	"packageManager": "yarn@1.22.22",
 	"scripts": {
 		"format": "prettier -w .",
 		"test": "jest --silent=false"
@@ -13,11 +14,11 @@
 	"license": "MIT",
 	"prettier": "@companion-module/tools/.prettierrc.json",
 	"dependencies": {
-		"@companion-module/base": "~1.10.0",
+		"@companion-module/base": "~1.15.0",
 		"node-rest-client": "^3.1.1"
 	},
 	"devDependencies": {
-		"@companion-module/tools": "^2.0.0",
+		"@companion-module/tools": "^2.9.0",
 		"jest": "^29.7.0",
 		"prettier": "^3.3.3"
 	}
