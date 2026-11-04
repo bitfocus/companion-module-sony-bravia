@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x]
+        node-version: [26.x]
 
     steps:
       - uses: actions/checkout@v4
@@ -22,9 +22,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Prepare Environment
         run: |
+          npm install --global corepack@0.34.0
           corepack enable
 
-          yarn install
+          yarn install --frozen-lockfile
         env:
           CI: true
       - name: prettier
