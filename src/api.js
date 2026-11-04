@@ -1,7 +1,34 @@
 const { InstanceStatus } = require('@companion-module/base')
 const entities = require('entities')
+const http = require('http')
 
 const Client = require('node-rest-client').Client
+
+function fetchAndEncodeBase64(url) {
+	return new Promise((resolve, reject) => {
+		http
+			.get(url, (res) => {
+				if (res.statusCode !== 200) {
+					reject(new Error(`Request Failed. Status Code: ${res.statusCode}`))
+					res.resume()
+					return
+				}
+
+				const chunks = []
+				res.on('data', (chunk) => {
+					chunks.push(chunk)
+				})
+
+				res.on('end', () => {
+					const base64 = Buffer.concat(chunks).toString('base64')
+					resolve(base64)
+				})
+			})
+			.on('error', (err) => {
+				reject(err)
+			})
+	})
+}
 
 module.exports = {
 	initConnection: function () {
@@ -178,12 +205,25 @@ module.exports = {
 
 	buildAppList: function () {
 		let self = this
+		const promises = []
 
 		self.CHOICES_APPS = []
 
 		for (let i = 0; i < self.DATA.apps.length; i++) {
 			let app = self.DATA.apps[i]
 			self.CHOICES_APPS.push({ id: app.uri, label: entities.decodeHTML(app.title) })
+			if (app.icon) {
+				promises.push(
+					fetchAndEncodeBase64(app.icon).then((png64) => {
+						self.CHOICES_APPS[i].png64 = png64
+					}),
+				)
+			}
 		}
+
+		;(async () => {
+			await Promise.allSettled(promises)
+			self.initPresets()
+		})()
 	},
 }
